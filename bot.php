@@ -11,7 +11,7 @@
     $message_id = $upadte["message"]["message_id"];
     $bot_name = "" //your bot name
  /// for broadcasting in Channel
-$channel_id = "-1001351780832"; 
+$channel_id = "-1001285558542"; 
 
     //Extact match Commands
     if($message == "/start"){
