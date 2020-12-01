@@ -15,7 +15,7 @@ $channel_id = "-1001351780832";
 
     //Extact match Commands
     if($message == "/start"){
-        send_message($chat_id, "Hey $firstname I am $bot_name \nSupport Group - @world_bots \nUse /cmds to view commands \nBot developed by @reboot13 ");
+        send_message($chat_id, "Hey $firstname I am $bot_name \nUse /cmds to view commands \nBot developed by @aniruddhsinghal5 ");
     }
 
     if($message == "/cmds"){
@@ -31,7 +31,6 @@ $channel_id = "-1001351780832";
           \n/time (current time)
           \n/git <username>
           \n/info (User Info)
-          \n/donate (Donate to Creator)
           ");
     }
 
@@ -53,12 +52,8 @@ $channel_id = "-1001351780832";
     }
 
 if($message == "/help"){
-        send_message($chat_id, "Contact @Reboot13");
+        send_message($chat_id, "Contact @aniruddhsinghal5");
     }
-if($message == "/donate"){
-        send_message($chat_id, "https://reboot13.hashnode.com/donate");
-    }
-
 ///Commands with text
 
 
@@ -356,20 +351,45 @@ else {
     send_message($chat_id, "Enter Valid Value");
 }
    }
+
+//////////=========[Sk Key Check Command]=========//////////
+
+elseif ((strpos($message, "!sk") === 0)||(strpos($message, "/sk") === 0)){
+$sec = substr($message, 4);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'https://api.stripe.com/v1/tokens');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, "card[number]=5154620061414478&card[exp_month]=01&card[exp_year]=2023&card[cvc]=235");
+curl_setopt($ch, CURLOPT_USERPWD, $sec. ':' . '');
+$headers = array();
+$headers[] = 'Content-Type: application/x-www-form-urlencoded';
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+$result = curl_exec($ch);
+if (strpos($result, 'api_key_expired')){
+sendMessage($chatId, "<b>❌ DEAD KEY</b>%0A<u>KEY:</u> <code>$sec</code>%0A<u>REASON:</u> EXPIRED KEY%0A%0A<b>Bot Made by: ANIRUDDH </b>");
+}
+elseif (strpos($result, 'Invalid API Key provided')){
+sendMessage($chatId, "<b>❌ DEAD KEY</b>%0A<u>KEY:</u> <code>$sec</code>%0A<u>REASON:</u> INVALID KEY%0A%0A<b>Bot Made by: ANIRUDDH </b>");
+}
+elseif ((strpos($result, 'testmode_charges_only')) || (strpos($result, 'test_mode_live_card'))){
+sendMessage($chatId, "<b>❌ DEAD KEY</b>%0A<u>KEY:</u> <code>$sec</code>%0A<u>REASON:</u> Testmode Charges Only%0A%0A<b>Bot Made by: ANIRUDDH </b>");
+}else{
+sendMessage($chatId, "<b>✅ LIVE KEY</b>%0A<u>KEY:</u> <code>$sec</code>%0A<u>RESPONSE:</u> SK LIVE!!%0A%0A<b>Bot Made by: ANIRUDDH </b>");
+}}
     
 
 
 
      ///Send Message (Global)
     function send_message($chat_id, $message){
-        $apiToken =  $_ENV["API_TOKEN"]
+        $apiToken =  $_ENV["1403862663:AAGISSyJdj_jbMfyddD8NJNcgdeKkfSqzUU"]
         $text = urlencode($message);
         file_get_contents("https://api.telegram.org/bot$apiToken/sendMessage?chat_id=$chat_id&reply_to_message_id=$message_id&text=$text");
     }
     
 //Send Messages with Markdown (Global)
       function send_MDmessage($chat_id, $message){
-       $apiToken =  $_ENV["API_TOKEN"]
+       $apiToken =  $_ENV["1403862663:AAGISSyJdj_jbMfyddD8NJNcgdeKkfSqzUU"]
         $text = urlencode($message);
         file_get_contents("https://api.telegram.org/bot$apiToken/sendMessage?chat_id=$chat_id&text=$message&parse_mode=Markdown");
     }
@@ -377,7 +397,7 @@ else {
 
 ///Send Message to Channel
       function send_Cmessage($channel_id, $message){
-       $apiToken =  $_ENV["API_TOKEN"]
+       $apiToken =  $_ENV["1403862663:AAGISSyJdj_jbMfyddD8NJNcgdeKkfSqzUU"]
         $text = urlencode($message);
         file_get_contents("https://api.telegram.org/bot$apiToken/sendMessage?chat_id=$channel_id&text=$text");
     }
